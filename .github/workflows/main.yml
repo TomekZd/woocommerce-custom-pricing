@@ -21,7 +21,7 @@ jobs:
       - name: Copy plugin files
         run: |
           # Copy only the essential plugin files, excluding GitHub workflows and Git files
-          cp enhanced-plugin.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
+          cp enhanced-wc-role-pricing.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
           cp README.md build/enhanced-wc-role-pricing/
           
           # Optionally copy other necessary files if you have them
