@@ -20,16 +20,19 @@ jobs:
 
       - name: Copy plugin files
         run: |
-          cp enhanced-wc-role-pricing.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
+          # Copy only the essential plugin files, excluding GitHub workflows and Git files
+          cp enhanced-plugin.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
           cp README.md build/enhanced-wc-role-pricing/
           
-          # Create optional additional directories if needed
+          # Optionally copy other necessary files if you have them
+          # Copy assets if they exist, but exclude .github, .git, and other development files
           # mkdir -p build/enhanced-wc-role-pricing/assets
-          # cp -R assets/* build/enhanced-wc-role-pricing/assets/ || true
+          # cp -R assets/* build/enhanced-wc-role-pricing/assets/ 2>/dev/null || true
           
-          # Include any other necessary files
-          # cp -R includes/* build/enhanced-wc-role-pricing/includes/ || true
-          # cp languages/* build/enhanced-wc-role-pricing/languages/ || true
+          # Do NOT copy these development files:
+          # - .github directory (workflows)
+          # - .gitignore
+          # - build directory
 
       - name: Create Zip
         run: |
