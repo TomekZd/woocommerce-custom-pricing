@@ -1,0 +1,61 @@
+name: Create Plugin
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create plugin directory
+        run: |
+          mkdir -p build/enhanced-wc-role-pricing
+
+      - name: Copy plugin files
+        run: |
+          cp enhanced-plugin.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
+          cp README.md build/enhanced-wc-role-pricing/
+          
+          # Create optional additional directories if needed
+          # mkdir -p build/enhanced-wc-role-pricing/assets
+          # cp -R assets/* build/enhanced-wc-role-pricing/assets/ || true
+          
+          # Include any other necessary files
+          # cp -R includes/* build/enhanced-wc-role-pricing/includes/ || true
+          # cp languages/* build/enhanced-wc-role-pricing/languages/ || true
+
+      - name: Create Zip
+        run: |
+          cd build && zip -r enhanced-wc-role-pricing.zip enhanced-wc-role-pricing
+
+      - name: Upload zip as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: enhanced-wc-role-pricing
+          path: build/enhanced-wc-role-pricing.zip
+
+  # Optional: Create a release when tagging
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download zip artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: enhanced-wc-role-pricing
+          path: ./
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: enhanced-wc-role-pricing.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
