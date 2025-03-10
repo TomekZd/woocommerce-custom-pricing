@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Create plugin directory
         run: |
@@ -36,7 +36,7 @@ jobs:
           cd build && zip -r enhanced-wc-role-pricing.zip enhanced-wc-role-pricing
 
       - name: Upload zip as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: enhanced-wc-role-pricing
           path: build/enhanced-wc-role-pricing.zip
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download zip artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: enhanced-wc-role-pricing
           path: ./
