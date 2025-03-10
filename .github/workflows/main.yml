@@ -20,7 +20,7 @@ jobs:
 
       - name: Copy plugin files
         run: |
-          cp enhanced-plugin.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
+          cp enhanced-wc-role-pricing.php build/enhanced-wc-role-pricing/enhanced-wc-role-pricing.php
           cp README.md build/enhanced-wc-role-pricing/
           
           # Create optional additional directories if needed
